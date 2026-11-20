@@ -270,6 +270,8 @@ html[data-view="v-sns"] .news{display:none}
 .menu .who{padding:calc(var(--u)*9) calc(var(--u)*5) calc(var(--u)*6)}
 .menu .who h3{font-size:calc(var(--u)*7);font-weight:500;letter-spacing:-0.05em}
 .menu .who p{margin-top:calc(var(--u)*2);font-size:calc(var(--u)*3.5);color:var(--mute);font-weight:300}
+.menu .mt{padding:calc(var(--u)*5) calc(var(--u)*5) 0;text-align:right}
+.menu .mt a{display:inline-block;border:calc(var(--u)*.3) solid #111;border-radius:0;background:#111;color:#fff;padding:calc(var(--u)*3.2) calc(var(--u)*6);font-size:calc(var(--u)*3.6);font-weight:500;letter-spacing:-0.05em;text-decoration:none}
 .menu .cnt{display:flex;gap:calc(var(--u)*2.4);padding:0 calc(var(--u)*5)}
 .menu .cnt a{flex:1;border:calc(var(--u)*.3) solid var(--line);border-radius:0;padding:calc(var(--u)*4.4) calc(var(--u)*1);text-align:center;font-size:calc(var(--u)*3.3);line-height:1.35;color:#333;text-decoration:none}
 .menu .cnt b{display:block;margin-top:calc(var(--u)*2.4);font-size:calc(var(--u)*6);font-weight:500;color:#2a62ff}
@@ -486,8 +488,36 @@ html.js.locked .gate{display:block}
 <section class="plain" id="test">
   <h2 class="fade">입반테스트로<br>우리 아이의 현재 위치를<br>먼저 확인합니다</h2>
   <p class="lead2 fade">학원은 학습 공간이라 방문 상담 대신 테스트 후 유선으로 상담해 드립니다.</p>
-  <div class="ar fade"><i>1</i><div><h3>문의 · 정보 전달</h3><p>연락처 · 아이 이름 · 학교명 · 희망 시간대</p></div></div><div class="ar fade"><i>2</i><div><h3>응시 · 입반테스트</h3><p>월 · 수 · 금 16:00–19:00 (비용 1만원)</p></div></div><div class="ar fade"><i>3</i><div><h3>상담 · 결과 유선 상담</h3><p>테스트 결과와 학습 방향 안내</p></div></div><div class="ar fade"><i>4</i><div><h3>배정 · 반 배정, 수업 시작</h3><p>학생 수준과 학교에 맞는 반 편성</p></div></div>
-  <a class="tl" href="tel:050713315288">입반테스트 전화 문의하기</a>
+  <div class="ar fade"><i>1</i><div><h3>문의 · 정보 전달</h3><p>연락처 · 아이 이름 · 학교명 · 희망 시간대</p></div></div><div class="ar fade"><i>2</i><div><h3>응시 · 입반테스트</h3><p>월~금 16:00–19:00 (비용 1만원)</p></div></div><div class="ar fade"><i>3</i><div><h3>상담 · 결과 유선 상담</h3><p>테스트 결과와 학습 방향 안내</p></div></div><div class="ar fade"><i>4</i><div><h3>배정 · 반 배정, 수업 시작</h3><p>학생 수준과 학교에 맞는 반 편성</p></div></div>
+  <a class="tl" href="#tbook">입반테스트 예약하기</a>
+  <a class="tl" href="tel:050713315288" style="margin-top:calc(var(--u)*2.4);background:#fff;color:#111;border:calc(var(--u)*.3) solid #111">입반테스트 전화 문의하기</a>
+</section>
+<section class="book" id="tbook">
+  <h2>입반테스트 예약</h2>
+  <p class="lead">신규 입반 희망 학생의 테스트 날짜와 시간을 남겨 주세요.<br>월~금 16:00–19:00, 1시간 단위로 예약할 수 있어요.</p>
+  <form class="bf" id="tf" novalidate>
+    <div class="f"><label for="t-name">학생 이름</label><input id="t-name" type="text" placeholder="이름" autocomplete="off"></div>
+    <div class="f"><label for="t-tel">학부모 연락처</label><input id="t-tel" type="tel" inputmode="numeric" placeholder="010-0000-0000" autocomplete="off"></div>
+    <div class="f"><label for="t-stel">학생 연락처</label><input id="t-stel" type="tel" inputmode="numeric" placeholder="010-0000-0000" autocomplete="off"></div>
+    <div class="f"><label for="t-school">학교명</label><input id="t-school" type="text" placeholder="예: 서초중" autocomplete="off"></div>
+    <div class="f"><span class="lb">학년</span><div class="chips" id="t-grade"><button type="button">초5</button><button type="button">초6</button><button type="button">중1</button><button type="button">중2</button><button type="button">중3</button><button type="button">고1</button><button type="button">고2</button><button type="button">고3</button></div></div>
+    <div class="f"><span class="lb">희망 날짜</span>
+      <div class="cal"><div class="ch"><button type="button" id="tp" aria-label="이전 달">‹</button><b id="tt"></b><button type="button" id="tn" aria-label="다음 달">›</button></div>
+      <div class="cw"><i>월</i><i>화</i><i>수</i><i>목</i><i>금</i><i>토</i><i>일</i></div><div class="cg" id="tg"></div></div>
+      <input id="t-date" type="hidden"><p class="cm" id="tm"></p></div>
+    <div class="f"><label for="t-time">희망 시간 (1시간 단위)</label><select id="t-time"><option value="">선택</option></select></div>
+    <button class="go" type="submit">예약 요청하기</button>
+    <div class="err" id="t-err"></div>
+    <p class="note">입반테스트 비용은 1만원이에요. 예약 요청 후 학원에서 확인해 연락드립니다.</p>
+  </form>
+  <div class="done" id="t-done">
+    <h3>예약 요청이 정리되었습니다</h3>
+    <p id="t-msg"></p>
+    <div class="sum" id="t-sum"></div>
+    <a class="smsb" id="t-sms" href="sms:01024169684" hidden>문자로 예약 보내기</a>
+    <p class="smsh" id="t-smsh" hidden>문자 앱이 열리지 않으면 예약 내용이 복사됐어요.<br><b>010-2416-9684</b> 번호로 붙여 넣어 보내 주세요.</p>
+    <div class="acts"><button type="button" id="t-copy">내용 복사</button><a href="tel:050713315288">전화로 확정하기</a></div>
+  </div>
 </section>
 </div>
 
@@ -748,6 +778,7 @@ html.js.locked .gate{display:block}
 <div class="menu" id="menu"><div class="mw">
   <div class="mh"><button id="mclose" aria-label="뒤로"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>메뉴</div>
   <div class="who"><h3>카니윌 수학 전문학원</h3><p>입시를 넘어, 세상을 보는 눈!</p></div>
+  <div class="mt"><a href="#tbook">입반테스트 예약 ›</a></div>
   <div class="ms"><h4>정규수업 수강생 전용</h4>
     <a class="row" href="#regtime">정규 시간표<span>›</span></a>
     <a class="row" href="#regular">수강생 전용<span>›</span></a>
@@ -896,6 +927,63 @@ html.js.locked .gate{display:block}
   $('#b-copy').addEventListener('click',function(){var b=this;var ok=function(){b.textContent='복사되었습니다'};try{navigator.clipboard.writeText(sum).then(ok,function(){})}catch(x){var ta=document.createElement('textarea');ta.value=sum;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok()}catch(y){}document.body.removeChild(ta)}});
 })();
 
+
+(function(){
+  var SMS_TO='01024169684';
+  var $=function(s){return document.querySelector(s)};
+  var DAY='일월화수목금토',MON=2;
+  function kst(){var k=new Date(Date.now()+9*36e5);return Date.UTC(k.getUTCFullYear(),k.getUTCMonth(),k.getUTCDate())}
+  var K0=new Date(kst()),cy=K0.getUTCFullYear(),cmo=K0.getUTCMonth(),BY=cy,BM=cmo,TMAX=Date.UTC(BY,BM+MON+1,0);
+  function hol(t){var d=new Date(t),m=d.getUTCMonth(),x=d.getUTCDate();return d.getUTCFullYear()===2027&&((m===0&&x===1)||(m===1&&x>=6&&x<=9))}
+  function usable(t){var w=new Date(t).getUTCDay();return t>=kst()&&t<=TMAX&&(w>=1&&w<=5)&&!hol(t)}
+  function fmt(t){var d=new Date(t);return (d.getUTCMonth()+1)+'/'+d.getUTCDate()+'('+DAY.charAt(d.getUTCDay())+')'}
+  var sel=$('#t-time'),cg=$('#tg'),ct=$('#tt'),cm=$('#tm'),bd=$('#t-date');
+  function fillTimes(d){sel.innerHTML='';var o0=document.createElement('option');o0.value='';sel.appendChild(o0);if(!d){o0.textContent='날짜를 먼저 선택해 주세요';return}o0.textContent='선택';
+    var today=Date.parse(d+'T00:00:00Z')===kst(),nowH=new Date(Date.now()+9*36e5).getUTCHours();
+    for(var h=16;h<19;h++){if(today&&h<=nowH)continue;var o=document.createElement('option');o.value=o.textContent=h+':00 ~ '+(h+1)+':00';sel.appendChild(o)}
+    if(sel.options.length===1)o0.textContent='오늘은 마감됐어요'}
+  fillTimes('');
+  var grade='';[].forEach.call(document.querySelectorAll('#t-grade button'),function(b){b.addEventListener('click',function(){grade=b.textContent;[].forEach.call(document.querySelectorAll('#t-grade button'),function(x){x.className=x===b?'on':''})})});
+  var tel=$('#t-tel'),stel=$('#t-stel');[tel,stel].forEach(function(el){el.addEventListener('input',function(){var v=el.value.replace(/\D/g,'').slice(0,11);el.value=v.length>7?v.replace(/(\d{3})(\d{4})(\d{0,4})/,'$1-$2-$3'):v.length>3?v.replace(/(\d{3})(\d+)/,'$1-$2'):v})});
+  function msg(x){cm.innerHTML=(x?x+'<br>':'')+'월~금에 예약할 수 있어요.'}
+  function off(){return (cy-BY)*12+cmo-BM}
+  function draw(){
+    ct.textContent=cy+'년 '+(cmo+1)+'월';cg.innerHTML='';
+    var first=Date.UTC(cy,cmo,1),lead=(new Date(first).getUTCDay()+6)%7,days=new Date(Date.UTC(cy,cmo+1,0)).getUTCDate();
+    for(var i=0;i<lead;i++)cg.appendChild(document.createElement('span'));
+    for(var d=1;d<=days;d++){(function(d){var t=Date.UTC(cy,cmo,d),b=document.createElement('button');b.type='button';b.textContent=d;
+      var on=bd.value===new Date(t).toISOString().slice(0,10);
+      b.className=!usable(t)?'off':(on?'on':'ok');
+      b.addEventListener('click',function(){
+        if(!usable(t))return msg('선택할 수 없는 날짜예요.');
+        bd.value=new Date(t).toISOString().slice(0,10);fillTimes(bd.value);draw();msg('선택한 날짜: <b>'+fmt(t)+'</b>')});
+      cg.appendChild(b)})(d)}
+    $('#tp').disabled=off()<=0;$('#tn').disabled=off()>=MON}
+  $('#tp').addEventListener('click',function(){if(off()>0){cmo--;if(cmo<0){cmo=11;cy--}draw()}});
+  $('#tn').addEventListener('click',function(){if(off()<MON){cmo++;if(cmo>11){cmo=0;cy++}draw()}});
+  draw();msg('');
+  var form=$('#tf'),err=$('#t-err'),done=$('#t-done'),sum='';
+  form.addEventListener('submit',function(e){e.preventDefault();
+    var n=$('#t-name').value.trim(),t=tel.value.trim(),st=stel.value.trim(),sc=$('#t-school').value.trim(),d=bd.value,tm=sel.value;
+    if(!n)return err.textContent='학생 이름을 입력해 주세요.';
+    if(t.replace(/\D/g,'').length<10)return err.textContent='학부모 연락처를 정확히 입력해 주세요.';
+    if(st.replace(/\D/g,'').length<10)return err.textContent='학생 연락처를 정확히 입력해 주세요.';
+    if(!sc)return err.textContent='학교명을 입력해 주세요.';
+    if(!grade)return err.textContent='학년을 선택해 주세요.';
+    if(!d)return err.textContent='희망 날짜를 선택해 주세요.';
+    if(!usable(Date.parse(d+'T00:00:00Z')))return err.textContent='선택할 수 있는 날짜를 골라 주세요.';
+    if(!tm)return err.textContent='희망 시간을 선택해 주세요.';
+    err.textContent='';
+    var dt=new Date(d+'T00:00:00Z');
+    sum='[카니윌 입반테스트 예약]\n학생: '+n+' ('+grade+')\n학교: '+sc+'\n학부모 연락처: '+t+'\n학생 연락처: '+st+'\n희망: '+(dt.getUTCMonth()+1)+'/'+dt.getUTCDate()+'('+DAY.charAt(dt.getUTCDay())+') '+tm;
+    $('#t-sum').textContent=sum;
+    var sb=$('#t-sms');sb.href='sms:'+SMS_TO+(/iPhone|iPad|iPod/.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(sum);sb.hidden=false;
+    sb.onclick=function(){var h=$('#t-smsh');try{navigator.clipboard&&navigator.clipboard.writeText(sum)}catch(x){}var inapp=/NAVER|KAKAOTALK|Instagram|FBAN|FBAV|Line\//i.test(navigator.userAgent);if(inapp)h.innerHTML='지금 보고 계신 앱 안에서는 문자 앱이 열리지 않을 수 있어요.<br>오른쪽 아래 메뉴에서 <b>사파리·크롬 등 다른 브라우저로 열기</b>를 누르거나, 복사된 내용을 <b>010-2416-9684</b>로 붙여 넣어 보내 주세요.';setTimeout(function(){h.hidden=false},900)};
+    $('#t-msg').textContent='아래 "문자로 예약 보내기"를 누르고, 문자 앱에서 보내기만 눌러 주세요.';
+    form.style.display='none';done.className='done on';done.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  $('#t-copy').addEventListener('click',function(){var b=this;var ok=function(){b.textContent='복사되었습니다'};try{navigator.clipboard.writeText(sum).then(ok,function(){})}catch(x){var ta=document.createElement('textarea');ta.value=sum;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok()}catch(y){}document.body.removeChild(ta)}});
+})();
 </script>
 </body>
 </html>
