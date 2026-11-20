@@ -130,6 +130,7 @@ body{overflow-x:clip;background:#fff;color:var(--ink);font-family:'Pretendard',-
 .done .sum{margin-top:calc(var(--u)*5);background:var(--bg2);padding:calc(var(--u)*4.5);font-size:calc(var(--u)*3.5);line-height:1.9;white-space:pre-line}
 .smsb{display:block;margin-top:calc(var(--u)*4);text-align:center;font-size:calc(var(--u)*4);font-weight:500;color:#fff;background:#111;border-radius:calc(var(--u)*.8);padding:calc(var(--u)*4.2) 0;text-decoration:none}
 .smsb[hidden]{display:none}
+.smsh{margin-top:calc(var(--u)*3);font-size:calc(var(--u)*3.3);color:var(--sub);line-height:1.7;font-weight:300}.smsh[hidden]{display:none}.smsh b{color:#111;font-weight:500}
 .done .acts{display:flex;gap:calc(var(--u)*2.4);margin-top:calc(var(--u)*4)}
 .done .acts a,.done .acts button{flex:1;text-align:center;font:inherit;font-size:calc(var(--u)*3.6);color:#111;background:#fff;border:calc(var(--u)*.3) solid #111;border-radius:calc(var(--u)*.8);padding:calc(var(--u)*3.4) 0;text-decoration:none;cursor:pointer}
 
@@ -687,7 +688,7 @@ html[data-view="v-sns"] .news{display:none}
   <form class="bf" id="bf" novalidate>
     <div class="f"><label for="b-name">학생 이름</label><input id="b-name" type="text" placeholder="이름" autocomplete="off"></div>
     <div class="f"><label for="b-tel">학부모 연락처</label><input id="b-tel" type="tel" inputmode="numeric" placeholder="010-0000-0000" autocomplete="off"></div>
-    <div class="f"><span class="lb">학년</span><div class="chips" id="b-grade"><button type="button">초5</button><button type="button">초6</button><button type="button">중1</button><button type="button">중2</button><button type="button">중3</button><button type="button">고1</button><button type="button">고2</button></div></div>
+    <div class="f"><span class="lb">학년</span><div class="chips" id="b-grade"><button type="button">중1</button><button type="button">중2</button><button type="button">중3</button><button type="button">고1</button><button type="button">고2</button><button type="button">고3</button></div></div>
     <div class="f"><span class="lb">희망 날짜</span>
       <div class="cal"><div class="ch"><button type="button" id="cp" aria-label="이전 달">‹</button><b id="ct"></b><button type="button" id="cn" aria-label="다음 달">›</button></div>
       <div class="cw"><i>월</i><i>화</i><i>수</i><i>목</i><i>금</i><i>토</i><i>일</i></div><div class="cg" id="cg"></div></div>
@@ -702,7 +703,8 @@ html[data-view="v-sns"] .news{display:none}
     <h3>예약 요청이 정리되었습니다</h3>
     <p id="b-msg"></p>
     <div class="sum" id="b-sum"></div>
-    <a class="smsb" id="b-sms" href="#" hidden>문자로 예약 보내기</a>
+    <a class="smsb" id="b-sms" href="sms:01024169684" hidden>문자로 예약 보내기</a>
+    <p class="smsh" id="b-smsh" hidden>문자 앱이 열리지 않으면 예약 내용이 복사됐어요.<br><b>010-2416-9684</b> 번호로 붙여 넣어 보내 주세요.</p>
     <div class="acts"><button type="button" id="b-copy">내용 복사</button><a href="tel:050713315288">전화로 확정하기</a></div>
   </div>
 </section>
@@ -743,6 +745,10 @@ html[data-view="v-sns"] .news{display:none}
 <div class="menu" id="menu"><div class="mw">
   <div class="mh"><button id="mclose" aria-label="뒤로"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>메뉴</div>
   <div class="who"><h3>카니윌 수학 전문학원</h3><p>입시를 넘어, 세상을 보는 눈!</p></div>
+  <div class="ms"><h4>정규수업 수강생 전용</h4>
+    <a class="row" href="#regtime">정규 시간표<span>›</span></a>
+    <a class="row" href="#regular">수강생 전용<span>›</span></a>
+    <a class="row" href="#book" data-v="v-regular">클리닉 예약<span>›</span></a></div>
   <div class="ms"><h4>카니윌</h4>
     <a class="row" href="#hero">홈<span>›</span></a>
     <a class="row" href="#greeting">원장 인사말<span>›</span></a>
@@ -754,10 +760,6 @@ html[data-view="v-sns"] .news{display:none}
     <a class="row" href="#team">팀 소개<span>›</span></a>
     <a class="row" href="#test">입반테스트<span>›</span></a>
     <a class="row" href="#review">학생 후기<span>›</span></a></div>
-  <div class="ms"><h4>정규수업</h4>
-    <a class="row" href="#regtime">정규 시간표<span>›</span></a>
-    <a class="row" href="#regular">수강생 전용<span>›</span></a>
-    <a class="row" href="#book" data-v="v-regular">클리닉 예약<span>›</span></a></div>
   <div class="ms"><h4>2027 윈터스쿨 스파르타 특강</h4>
     <a class="row" href="#winter">특강 소개<span>›</span></a>
     <a class="row" href="#sparta">스파르타란<span>›</span></a>
@@ -873,7 +875,7 @@ html[data-view="v-sns"] .news{display:none}
     err.textContent='';
     var dt=new Date(d+'T00:00:00Z'),wk='일월화수목금토'.charAt(dt.getUTCDay());
     sum='[카니윌 정규반 클리닉 예약]\n학생: '+n+' ('+grade+')\n연락처: '+t+'\n희망: '+(dt.getUTCMonth()+1)+'/'+dt.getUTCDate()+'('+wk+') '+tm+(m?'\n질문 단원: '+m:'');
-    var finish=function(sent){$('#b-msg').textContent=sent?'접수되었습니다. 확인 후 연락드리겠습니다.':'아래 내용을 복사해 학원으로 보내 주시거나, 전화로 확정해 주세요.';$('#b-sum').textContent=sum;if(SMS_TO){var sb=$('#b-sms');sb.href='sms:'+SMS_TO+(/iPhone|iPad|iPod/.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(sum);sb.hidden=false;$('#b-msg').textContent='아래 "문자로 예약 보내기"를 누르고, 문자 앱에서 보내기만 눌러 주세요.'}form.style.display='none';done.className='done on';done.scrollIntoView({behavior:'smooth',block:'start'})};
+    var finish=function(sent){$('#b-msg').textContent=sent?'접수되었습니다. 확인 후 연락드리겠습니다.':'아래 내용을 복사해 학원으로 보내 주시거나, 전화로 확정해 주세요.';$('#b-sum').textContent=sum;if(SMS_TO){var sb=$('#b-sms');sb.href='sms:'+SMS_TO+(/iPhone|iPad|iPod/.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(sum);sb.hidden=false;sb.onclick=function(){var h=$('#b-smsh');try{navigator.clipboard&&navigator.clipboard.writeText(sum)}catch(x){}var inapp=/NAVER|KAKAOTALK|Instagram|FBAN|FBAV|Line\//i.test(navigator.userAgent);if(inapp)h.innerHTML='지금 보고 계신 앱 안에서는 문자 앱이 열리지 않을 수 있어요.<br>오른쪽 아래 메뉴에서 <b>사파리·크롬 등 다른 브라우저로 열기</b>를 누르거나, 복사된 내용을 <b>010-2416-9684</b>로 붙여 넣어 보내 주세요.';setTimeout(function(){h.hidden=false},900)};$('#b-msg').textContent='아래 "문자로 예약 보내기"를 누르고, 문자 앱에서 보내기만 눌러 주세요.'}form.style.display='none';done.className='done on';done.scrollIntoView({behavior:'smooth',block:'start'})};
     if(ENDPOINT){try{fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,tel:t,grade:grade,date:d,time:tm,memo:m})}).then(function(r){finish(r.ok)}).catch(function(){finish(false)})}catch(x){finish(false)}}else finish(false);
   });
   $('#b-copy').addEventListener('click',function(){var b=this;var ok=function(){b.textContent='복사되었습니다'};try{navigator.clipboard.writeText(sum).then(ok,function(){})}catch(x){var ta=document.createElement('textarea');ta.value=sum;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok()}catch(y){}document.body.removeChild(ta)}});
