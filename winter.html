@@ -120,6 +120,15 @@ body{overflow-x:clip;background:#fff;color:var(--ink);font-family:'Pretendard',-
 .chips{display:flex;flex-wrap:wrap;gap:calc(var(--u)*2)}
 .chips button{font:inherit;font-size:calc(var(--u)*3.6);color:#555;background:#fff;border:calc(var(--u)*.3) solid #ccc;border-radius:0;padding:calc(var(--u)*2.4) calc(var(--u)*3.4);cursor:pointer}
 .chips button.on{background:#111;color:#fff;border-color:#111}
+.ag{padding:calc(var(--u)*5) 0 0}
+.bf .agl{display:flex;align-items:center;gap:calc(var(--u)*2.6);margin:0;font-size:calc(var(--u)*3.5);color:#111;cursor:pointer}
+.bf .ag input[type=checkbox]{-webkit-appearance:none;appearance:none;flex:none;width:calc(var(--u)*5.4);height:calc(var(--u)*5.4);margin:0;padding:0;border:calc(var(--u)*.3) solid #111;border-radius:0;background:#fff;position:relative;cursor:pointer}
+.bf .ag input[type=checkbox]:checked{background:#111}
+.bf .ag input[type=checkbox]:checked::after{content:"";position:absolute;left:calc(var(--u)*1.5);top:calc(var(--u)*.4);width:calc(var(--u)*1.6);height:calc(var(--u)*3.2);border:solid #fff;border-width:0 calc(var(--u)*.5) calc(var(--u)*.5) 0;transform:rotate(45deg)}
+.agd{margin-top:calc(var(--u)*2.4)}.agd summary{font-size:calc(var(--u)*3.2);color:var(--mute);cursor:pointer;list-style:none;text-decoration:underline}
+.agd summary::-webkit-details-marker{display:none}
+.agd>div{margin-top:calc(var(--u)*2.4);background:var(--bg2);padding:calc(var(--u)*4);font-size:calc(var(--u)*3.1);line-height:1.8;color:var(--sub);font-weight:300}
+.agd p+p{margin-top:calc(var(--u)*1.6)}.agd b{font-weight:500;color:#111;margin-right:calc(var(--u)*1.4)}
 .bf .go{display:block;width:100%;margin-top:calc(var(--u)*7);font:inherit;font-size:calc(var(--u)*4);font-weight:500;color:#fff;background:#111;border:0;border-radius:0;padding:calc(var(--u)*4.2) 0;cursor:pointer}
 .bf .note{margin-top:calc(var(--u)*3.5);font-size:calc(var(--u)*3.1);color:var(--mute);line-height:1.7;font-weight:300}
 .bf .err{margin-top:calc(var(--u)*3);font-size:calc(var(--u)*3.3);color:#c0392b;min-height:calc(var(--u)*4)}
@@ -507,6 +516,14 @@ html.js.locked .gate{display:block}
       <div class="cw"><i>월</i><i>화</i><i>수</i><i>목</i><i>금</i><i>토</i><i>일</i></div><div class="cg" id="tg"></div></div>
       <input id="t-date" type="hidden"><p class="cm" id="tm"></p></div>
     <div class="f"><label for="t-time">희망 시간 (1시간 단위)</label><select id="t-time"><option value="">선택</option></select></div>
+    <div class="ag"><label class="agl" for="t-agree"><input id="t-agree" type="checkbox"><span>(필수) 개인정보 수집·이용에 동의합니다</span></label>
+      <details class="agd"><summary>내용 보기</summary><div>
+        <p><b>수집 항목</b> 학생 이름, 학부모 연락처, 학생 연락처, 학교명, 학년, 희망 날짜·시간</p>
+        <p><b>수집·이용 목적</b> 예약 확인 및 상담 연락, 수업 안내</p>
+        <p><b>보유·이용 기간</b> 예약 처리와 상담이 끝나면 지체 없이 파기합니다. 입반 등록 시에는 학원 운영 목적으로 보관합니다.</p>
+        <p><b>동의 거부 권리</b> 동의를 거부할 수 있으나, 거부하시면 예약을 접수할 수 없습니다.</p>
+        <p><b>문의</b> 카니윌 수학 전문학원 02-2135-8447</p>
+      </div></details></div>
     <button class="go" type="submit">예약 요청하기</button>
     <div class="err" id="t-err"></div>
     <p class="note">입반테스트 비용은 1만원이에요. 예약 요청 후 학원에서 확인해 연락드립니다.</p>
@@ -741,6 +758,14 @@ html.js.locked .gate{display:block}
       <input id="b-date" type="hidden"><p class="cm" id="cm"></p></div>
     <div class="f"><label for="b-time">희망 시간 (30분 단위)</label><select id="b-time"><option value="">선택</option></select></div>
     <div class="f"><label for="b-memo">질문하고 싶은 단원 (선택)</label><input id="b-memo" type="text" placeholder="예: 미적분 극한" autocomplete="off"></div>
+    <div class="ag"><label class="agl" for="b-agree"><input id="b-agree" type="checkbox"><span>(필수) 개인정보 수집·이용에 동의합니다</span></label>
+      <details class="agd"><summary>내용 보기</summary><div>
+        <p><b>수집 항목</b> 학생 이름, 학부모 연락처, 학생 연락처, 학년, 희망 날짜·시간</p>
+        <p><b>수집·이용 목적</b> 예약 확인 및 상담 연락, 수업 안내</p>
+        <p><b>보유·이용 기간</b> 예약 처리와 상담이 끝나면 지체 없이 파기합니다. 입반 등록 시에는 학원 운영 목적으로 보관합니다.</p>
+        <p><b>동의 거부 권리</b> 동의를 거부할 수 있으나, 거부하시면 예약을 접수할 수 없습니다.</p>
+        <p><b>문의</b> 카니윌 수학 전문학원 02-2135-8447</p>
+      </div></details></div>
     <button class="go" type="submit">예약 요청하기</button>
     <div class="err" id="b-err"></div>
     <p class="note">예약 요청 후 학원에서 가능 여부를 확인해 연락드립니다. 급한 경우 전화로 문의해 주세요.</p>
@@ -782,7 +807,7 @@ html.js.locked .gate{display:block}
   <span class="fs">관할 교육지원청 강남서초교육지원청</span>
   <span class="fs fm">고객센터 <a href="tel:050713315288">0507-1331-5288</a> | 대표번호 02-2135-8447</span>
   <span class="fs">홈페이지 caniwill.com | 블로그 blog.naver.com/caniwill</span>
-  <span class="fs fm">저작권 카니윌 수학 전문학원. 모든 권리 보유.</span>
+  <span class="fs fm">Copyright © 카니윌 수학 전문학원. 모든 권리 보유.</span>
 </div>
 </div>
 
@@ -931,6 +956,7 @@ html.js.locked .gate{display:block}
     if(!d)return err.textContent='희망 날짜를 선택해 주세요.';
     var dtt=Date.parse(d+'T00:00:00Z');if(!usable(dtt)||!isOpen(dtt))return err.textContent='예약이 열린 날짜를 선택해 주세요.';
     if(!tm)return err.textContent='희망 시간을 선택해 주세요.';
+    if(!$('#b-agree').checked)return err.textContent='개인정보 수집·이용에 동의해 주세요.';
     err.textContent='';
     var dt=new Date(d+'T00:00:00Z'),wk='일월화수목금토'.charAt(dt.getUTCDay());
     sum='[카니윌 정규반 클리닉 예약]\n학생: '+n+' ('+grade+')\n학부모 연락처: '+t+'\n학생 연락처: '+st+'\n희망: '+(dt.getUTCMonth()+1)+'/'+dt.getUTCDate()+'('+wk+') '+tm+(m?'\n질문 단원: '+m:'');
@@ -986,6 +1012,7 @@ html.js.locked .gate{display:block}
     if(!d)return err.textContent='희망 날짜를 선택해 주세요.';
     if(!usable(Date.parse(d+'T00:00:00Z')))return err.textContent='선택할 수 있는 날짜를 골라 주세요.';
     if(!tm)return err.textContent='희망 시간을 선택해 주세요.';
+    if(!$('#t-agree').checked)return err.textContent='개인정보 수집·이용에 동의해 주세요.';
     err.textContent='';
     var dt=new Date(d+'T00:00:00Z');
     sum='[카니윌 입반테스트 예약]\n학생: '+n+' ('+grade+')\n학교: '+sc+'\n학부모 연락처: '+t+'\n학생 연락처: '+st+'\n희망: '+(dt.getUTCMonth()+1)+'/'+dt.getUTCDate()+'('+DAY.charAt(dt.getUTCDay())+') '+tm;
