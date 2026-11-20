@@ -128,6 +128,8 @@ body{overflow-x:clip;background:#fff;color:var(--ink);font-family:'Pretendard',-
 .done h3{font-size:calc(var(--u)*4.6);font-weight:500}
 .done p{margin-top:calc(var(--u)*2.5);font-size:calc(var(--u)*3.5);color:var(--sub);font-weight:300;line-height:1.75}
 .done .sum{margin-top:calc(var(--u)*5);background:var(--bg2);padding:calc(var(--u)*4.5);font-size:calc(var(--u)*3.5);line-height:1.9;white-space:pre-line}
+.smsb{display:block;margin-top:calc(var(--u)*4);text-align:center;font-size:calc(var(--u)*4);font-weight:500;color:#fff;background:#111;border-radius:calc(var(--u)*.8);padding:calc(var(--u)*4.2) 0;text-decoration:none}
+.smsb[hidden]{display:none}
 .done .acts{display:flex;gap:calc(var(--u)*2.4);margin-top:calc(var(--u)*4)}
 .done .acts a,.done .acts button{flex:1;text-align:center;font:inherit;font-size:calc(var(--u)*3.6);color:#111;background:#fff;border:calc(var(--u)*.3) solid #111;border-radius:calc(var(--u)*.8);padding:calc(var(--u)*3.4) 0;text-decoration:none;cursor:pointer}
 
@@ -700,6 +702,7 @@ html[data-view="v-sns"] .news{display:none}
     <h3>예약 요청이 정리되었습니다</h3>
     <p id="b-msg"></p>
     <div class="sum" id="b-sum"></div>
+    <a class="smsb" id="b-sms" href="#" hidden>문자로 예약 보내기</a>
     <div class="acts"><button type="button" id="b-copy">내용 복사</button><a href="tel:050713315288">전화로 확정하기</a></div>
   </div>
 </section>
@@ -824,6 +827,7 @@ html[data-view="v-sns"] .news{display:none}
 (function(){
   /* 예약 전송 주소: 학원 서버(caniwill.com) 접수 API 주소를 넣으면 자동으로 전송됩니다. 비워 두면 내용 복사/전화로 접수됩니다. */
   var ENDPOINT='';
+  var SMS_TO='01024169684';/* 예약 문자를 받을 휴대폰 번호(숫자만) */
   var $=function(s){return document.querySelector(s)};
   var sel=$('#b-time');for(var h=10;h<=21;h++){var o=document.createElement('option');o.value=o.textContent=(h<10?'0':'')+h+':00';sel.appendChild(o)}
   var grade='';[].forEach.call(document.querySelectorAll('#b-grade button'),function(b){b.addEventListener('click',function(){grade=b.textContent;[].forEach.call(document.querySelectorAll('#b-grade button'),function(x){x.className=x===b?'on':''})})});
@@ -869,7 +873,7 @@ html[data-view="v-sns"] .news{display:none}
     err.textContent='';
     var dt=new Date(d+'T00:00:00Z'),wk='일월화수목금토'.charAt(dt.getUTCDay());
     sum='[카니윌 정규반 클리닉 예약]\n학생: '+n+' ('+grade+')\n연락처: '+t+'\n희망: '+(dt.getUTCMonth()+1)+'/'+dt.getUTCDate()+'('+wk+') '+tm+(m?'\n질문 단원: '+m:'');
-    var finish=function(sent){$('#b-msg').textContent=sent?'접수되었습니다. 확인 후 연락드리겠습니다.':'아래 내용을 복사해 학원으로 보내 주시거나, 전화로 확정해 주세요.';$('#b-sum').textContent=sum;form.style.display='none';done.className='done on';done.scrollIntoView({behavior:'smooth',block:'start'})};
+    var finish=function(sent){$('#b-msg').textContent=sent?'접수되었습니다. 확인 후 연락드리겠습니다.':'아래 내용을 복사해 학원으로 보내 주시거나, 전화로 확정해 주세요.';$('#b-sum').textContent=sum;if(SMS_TO){var sb=$('#b-sms');sb.href='sms:'+SMS_TO+(/iPhone|iPad|iPod/.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(sum);sb.hidden=false;$('#b-msg').textContent='아래 "문자로 예약 보내기"를 누르고, 문자 앱에서 보내기만 눌러 주세요.'}form.style.display='none';done.className='done on';done.scrollIntoView({behavior:'smooth',block:'start'})};
     if(ENDPOINT){try{fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,tel:t,grade:grade,date:d,time:tm,memo:m})}).then(function(r){finish(r.ok)}).catch(function(){finish(false)})}catch(x){finish(false)}}else finish(false);
   });
   $('#b-copy').addEventListener('click',function(){var b=this;var ok=function(){b.textContent='복사되었습니다'};try{navigator.clipboard.writeText(sum).then(ok,function(){})}catch(x){var ta=document.createElement('textarea');ta.value=sum;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok()}catch(y){}document.body.removeChild(ta)}});
