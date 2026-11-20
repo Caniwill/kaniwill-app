@@ -120,6 +120,15 @@ body{overflow-x:clip;background:#fff;color:var(--ink);font-family:'Pretendard',-
 .chips{display:flex;flex-wrap:wrap;gap:calc(var(--u)*2)}
 .chips button{font:inherit;font-size:calc(var(--u)*3.6);color:#555;background:#fff;border:calc(var(--u)*.3) solid #ccc;border-radius:0;padding:calc(var(--u)*2.4) calc(var(--u)*3.4);cursor:pointer}
 .chips button.on{background:#111;color:#fff;border-color:#111}
+.ag{padding:calc(var(--u)*5) 0 0}
+.bf .agl{display:flex;align-items:center;gap:calc(var(--u)*2.6);margin:0;font-size:calc(var(--u)*3.5);color:#111;cursor:pointer}
+.bf .ag input[type=checkbox]{-webkit-appearance:none;appearance:none;flex:none;width:calc(var(--u)*5.4);height:calc(var(--u)*5.4);margin:0;padding:0;border:calc(var(--u)*.3) solid #111;border-radius:0;background:#fff;position:relative;cursor:pointer}
+.bf .ag input[type=checkbox]:checked{background:#111}
+.bf .ag input[type=checkbox]:checked::after{content:"";position:absolute;left:calc(var(--u)*1.5);top:calc(var(--u)*.4);width:calc(var(--u)*1.6);height:calc(var(--u)*3.2);border:solid #fff;border-width:0 calc(var(--u)*.5) calc(var(--u)*.5) 0;transform:rotate(45deg)}
+.agd{margin-top:calc(var(--u)*2.4)}.agd summary{font-size:calc(var(--u)*3.2);color:var(--mute);cursor:pointer;list-style:none;text-decoration:underline}
+.agd summary::-webkit-details-marker{display:none}
+.agd>div{margin-top:calc(var(--u)*2.4);background:var(--bg2);padding:calc(var(--u)*4);font-size:calc(var(--u)*3.1);line-height:1.8;color:var(--sub);font-weight:300}
+.agd p+p{margin-top:calc(var(--u)*1.6)}.agd b{font-weight:500;color:#111;margin-right:calc(var(--u)*1.4)}
 .bf .go{display:block;width:100%;margin-top:calc(var(--u)*7);font:inherit;font-size:calc(var(--u)*4);font-weight:500;color:#fff;background:#111;border:0;border-radius:0;padding:calc(var(--u)*4.2) 0;cursor:pointer}
 .bf .note{margin-top:calc(var(--u)*3.5);font-size:calc(var(--u)*3.1);color:var(--mute);line-height:1.7;font-weight:300}
 .bf .err{margin-top:calc(var(--u)*3);font-size:calc(var(--u)*3.3);color:#c0392b;min-height:calc(var(--u)*4)}
@@ -219,7 +228,8 @@ body{overflow-x:clip;background:#fff;color:var(--ink);font-family:'Pretendard',-
 .seg{position:sticky;top:calc(var(--u)*14);z-index:20;display:flex;background:#fff;border-bottom:calc(var(--u)*.3) solid var(--line)}
 .seg a{flex:1;text-align:center;padding:calc(var(--u)*4) 0;font-size:calc(var(--u)*3.7);font-weight:500;color:#111;text-decoration:none}
 .seg a+a{border-left:calc(var(--u)*.3) solid var(--line)}
-#regtime{scroll-margin-top:calc(var(--u)*28);margin-top:calc(var(--u)*6)}#time{scroll-margin-top:calc(var(--u)*28)}
+.seg a.on{background:#111;color:#fff}.seg a.on+a,.seg a+a.on{border-left-color:#111}
+#regtime{scroll-margin-top:calc(var(--u)*28);margin-top:calc(var(--u)*6)}#time{scroll-margin-top:calc(var(--u)*28);margin-top:calc(var(--u)*6)}
 .acc .bd .r dt{flex:none;width:calc(var(--u)*30);white-space:nowrap}
 
 .pgh{background:#000;color:#fff;padding:calc(var(--u)*9) calc(var(--u)*5) calc(var(--u)*8)}
@@ -506,6 +516,14 @@ html.js.locked .gate{display:block}
       <div class="cw"><i>월</i><i>화</i><i>수</i><i>목</i><i>금</i><i>토</i><i>일</i></div><div class="cg" id="tg"></div></div>
       <input id="t-date" type="hidden"><p class="cm" id="tm"></p></div>
     <div class="f"><label for="t-time">희망 시간 (1시간 단위)</label><select id="t-time"><option value="">선택</option></select></div>
+    <div class="ag"><label class="agl" for="t-agree"><input id="t-agree" type="checkbox"><span>(필수) 개인정보 수집·이용에 동의합니다</span></label>
+      <details class="agd"><summary>내용 보기</summary><div>
+        <p><b>수집 항목</b> 학생 이름, 학부모 연락처, 학생 연락처, 학교명, 학년, 희망 날짜·시간</p>
+        <p><b>수집·이용 목적</b> 예약 확인 및 상담 연락, 수업 안내</p>
+        <p><b>보유·이용 기간</b> 예약 처리와 상담이 끝나면 지체 없이 파기합니다. 입반 등록 시에는 학원 운영 목적으로 보관합니다.</p>
+        <p><b>동의 거부 권리</b> 동의를 거부할 수 있으나, 거부하시면 예약을 접수할 수 없습니다.</p>
+        <p><b>문의</b> 카니윌 수학 전문학원 02-2135-8447</p>
+      </div></details></div>
     <button class="go" type="submit">예약 요청하기</button>
     <div class="err" id="t-err"></div>
     <p class="note">입반테스트 비용은 1만원이에요. 예약 요청 후 학원에서 확인해 연락드립니다.</p>
@@ -582,7 +600,7 @@ html.js.locked .gate{display:block}
   <div class="df fade"><h4>중1 <small>월요일</small></h4><ul><li><b>특강</b><span>11:30–13:30</span></li><li class="g"><b>점심</b><span>13:30–14:40</span></li><li class="c"><b>클리닉</b><span>14:40–16:40</span></li><li class="g"><b>쉬는시간</b><span>16:40–17:00</span></li><li class="r"><b>정규반</b><span>17:00–19:00</span></li></ul></div>
   <div class="df fade"><h4>중2 <small>화요일</small></h4><ul><li><b>특강</b><span>10:00–12:00</span></li><li class="c"><b>클리닉</b><span>12:00–14:00</span></li></ul></div>
   <div class="df fade"><h4>중3 <small>화요일</small></h4><ul><li><b>특강</b><span>11:30–13:30</span></li><li class="c"><b>클리닉</b><span>13:30–15:30</span></li><li class="g"><b>쉬는시간</b><span>15:30–16:30</span></li><li class="r"><b>정규반</b><span>16:30–18:30</span></li></ul></div>
-  <p class="fn">반별 상세 시간표는 아래 특강 시간표에서 확인해 주세요.</p>
+  <p class="fn">반별 상세 시간표는 아래 윈터스쿨 특강 시간표에서 확인해 주세요.</p>
 </section>
 
 <section class="plain" id="flow">
@@ -608,7 +626,7 @@ html.js.locked .gate{display:block}
 </section>
 <section class="ql" id="wlinks">
   <h2 class="fade">특강 더 알아보기</h2>
-  <a class="qr" href="#time">특강 · 정규 시간표<span>›</span></a>
+  <a class="qr" href="#regtime">정규 · 윈터스쿨 특강 시간표<span>›</span></a>
   <a class="qr" href="#rules">스파르타 수업 규칙<span>›</span></a>
 </section>
 
@@ -623,10 +641,47 @@ html.js.locked .gate{display:block}
 </div>
 
 <div class="view" id="v-schedule">
-<div class="seg"><a href="#time">특강 시간표</a><a href="#regtime">정규 시간표</a></div>
+<div class="seg"><a href="#regtime">정규 시간표</a><a href="#time">윈터스쿨 특강 시간표</a></div>
+<section class="tt" id="regtime">
+  <div class="head"><h2>정규 시간표</h2><p>학년을 선택하고 반을 눌러 정규반 시간을 확인하세요.</p></div>
+  <div class="tabs" id="rtabs"><button class="on" data-p="r-high">고등부</button><button data-p="r-mid">중등부</button><button data-p="r-el">예비중등부</button></div>
+  <ul class="notes">
+    <li>윈터스쿨 특강 기간에도 정규반 수업은 그대로 진행됩니다.</li>
+    <li>반별 요일과 시간은 학원으로 문의해 주세요.</li>
+    <li>고등부는 토요일 클리닉이 의무입니다.</li>
+  </ul>
+  <div class="panel on" id="r-high">
+    <div class="subbar"><span>고등부 토요일 클리닉</span><b>의무</b></div>
+    <div class="acc open"><button><span class="nm">고1<small>월·목</small></span><span class="pm"></span></button><div class="bd"><dl>
+      <div class="r"><dt>월·목</dt><dd>18:30–22:00</dd></div></dl></div></div>
+    <div class="acc"><button><span class="nm">고2<small>화·금</small></span><span class="pm"></span></button><div class="bd"><dl>
+      <div class="r"><dt>화·금</dt><dd>18:30–22:00</dd></div></dl></div></div>
+  </div>
+  <div class="panel" id="r-mid">
+    <div class="acc open"><button><span class="nm">중1<small>월·수·금</small></span><span class="pm"></span></button><div class="bd"><dl>
+      <div class="r"><dt>월·금</dt><dd>17:00–19:00</dd></div><div class="r"><dt>수</dt><dd>16:30–18:30</dd></div></dl></div></div>
+    <div class="acc"><button><span class="nm">중2<small>수 · 토</small></span><span class="pm"></span></button><div class="bd"><dl>
+      <div class="r"><dt>수</dt><dd>16:00–19:00</dd></div><div class="r"><dt>토</dt><dd>14:00–17:00</dd></div></dl></div></div>
+    <div class="acc"><button><span class="nm">중3<small>화·목 · 토</small></span><span class="pm"></span></button><div class="bd"><dl>
+      <div class="r"><dt>화·목</dt><dd>16:30–18:30</dd></div><div class="r"><dt>토</dt><dd>11:30–13:30</dd></div></dl></div></div>
+  </div>
+  <div class="panel" id="r-el">
+    <div class="acc open"><button><span class="nm">초5 · 초6<small>월·수·금</small></span><span class="pm"></span></button><div class="bd"><dl>
+      <div class="r"><dt>월·수·금</dt><dd>15:30–17:30</dd></div></dl></div></div>
+  </div>
+</section>
+<section class="plain" id="regflow">
+  <h2 class="fade">정규 수업은<br>이렇게 진행됩니다</h2>
+  <p class="lead2 fade">수업은 월 12회 기준으로 운영되며, 매 수업은 복습테스트로 시작합니다.</p>
+  <div class="ar fade"><i>01</i><div><h3>복습테스트</h3><p>지난 수업 내용을 테스트로 먼저 확인합니다.</p></div></div>
+  <div class="ar fade"><i>02</i><div><h3>오답 정리</h3><p>틀린 문제는 오답노트로 정리하고 다시 풉니다.</p></div></div>
+  <div class="ar fade"><i>03</i><div><h3>강의</h3><p>판서식 수업으로 개념에서 이어지는 풀이를 설명합니다.</p></div></div>
+  <div class="ar fade"><i>04</i><div><h3>구두테스트</h3><p>개념을 직접 설명해 보며 이해했는지 확인합니다.</p></div></div>
+  <div class="ar fade"><i>05</i><div><h3>클리닉</h3><p>모르는 문제는 알 때까지 확인하고, 손해설을 제공합니다.</p></div></div>
+</section>
 <section class="tt" id="time">
-  <div class="head"><h2>특강 시간표</h2><p>학년을 선택하고 반을 눌러 요일과 시간을 확인하세요.</p></div>
-  <div class="tabs" id="tabs"><button class="on" data-p="p-el">예비중등부</button><button data-p="p-mid">중등부</button><button data-p="p-high">고등부</button></div>
+  <div class="head"><h2>윈터스쿨 특강 시간표</h2><p>학년을 선택하고 반을 눌러 요일과 시간을 확인하세요.</p></div>
+  <div class="tabs" id="tabs"><button class="on" data-p="p-high">고등부</button><button data-p="p-mid">중등부</button><button data-p="p-el">예비중등부</button></div>
   <ul class="notes">
     <li>모든 수업은 원장이 직접 진행합니다.</li>
     <li>특강 뒤 클리닉 2시간, 전문 조교와 부원장이 책임지고 진행합니다.</li>
@@ -636,25 +691,7 @@ html.js.locked .gate{display:block}
     <li>특강이 끝나면 클리닉 2시간이 배정되며, 남는 시간은 쉬는시간입니다. 점심시간은 1시간입니다.</li>
   </ul>
 
-  <div class="panel on" id="p-el">
-    <div class="subbar"><span>특강 기간</span><b>1/8(금) ~ 2/26(금) · 총 21회</b></div>
-    <div class="acc open"><button><span class="nm">초5 · 초6<small>월·수·금</small></span><span class="pm"></span></button><div class="bd"><dl>
-      <div class="r"><dt>요일</dt><dd>월·수·금</dd></div><div class="r"><dt>시간</dt><dd>10:00–12:00</dd></div><div class="r"><dt>과정</dt><dd>중등 1-1 / 1-2 선택</dd></div></dl></div></div>
-  </div>
-
-  <div class="panel" id="p-mid">
-    <div class="subbar"><span>중등부 특강 시작</span><b>1/11(월)</b></div>
-    <div class="intro2"><div><small>2PM · 중1</small><b>중등 2-2 · 현 중1 대상</b><span>월·수·금 11:30–13:30<br>1/11 ~ 2/26 (20회)</span></div><div><small>3PT · 중2</small><b>중등 3-2 · 현 중2 대상</b><span>화·목 10:00–12:00 / 토 17:00–19:00<br>1/11 ~ 2/27 (19회)</span></div></div>
-    <div class="intro2" style="padding-top:0"><div><small>1HT · 중3</small><b>공통수학2 기본 + 공통수학1 심화 · 중3 대상</b><span>화·목 11:30–13:30 / 토 10:00–12:00<br>1/11 ~ 2/27 (19회)</span></div></div>
-    <div class="acc open"><button><span class="nm">중1<small>2PM · 월·수·금</small></span><span class="pm"></span></button><div class="bd"><dl>
-      <div class="r"><dt>특강 월·수·금</dt><dd>11:30–13:30</dd></div><div class="r"><dt>점심 월·금</dt><dd>13:30–14:40</dd></div><div class="r"><dt>클리닉 월·금</dt><dd>14:40–16:40</dd></div><div class="r"><dt>클리닉 수</dt><dd>13:30–15:00</dd></div><div class="r"><dt>정규반 월·금</dt><dd>17:00–19:00</dd></div><div class="r"><dt>정규반 수</dt><dd>15:00–17:00</dd></div></dl></div></div>
-    <div class="acc"><button><span class="nm">중2<small>3PT · 화·목 · 토</small></span><span class="pm"></span></button><div class="bd"><dl>
-      <div class="r"><dt>특강 화·목</dt><dd>10:00–12:00</dd></div><div class="r"><dt>클리닉 화·목</dt><dd>12:00–14:00</dd></div><div class="r"><dt>정규반 토</dt><dd>14:00–17:00</dd></div><div class="r"><dt>특강 토</dt><dd>17:00–19:00</dd></div><div class="r"><dt>클리닉 토</dt><dd>19:00–21:00</dd></div><div class="r"><dt>정규반 수</dt><dd>16:00–19:00</dd></div></dl></div></div>
-    <div class="acc"><button><span class="nm">중3<small>1HT · 화·목 · 토</small></span><span class="pm"></span></button><div class="bd"><dl>
-      <div class="r"><dt>특강 화·목</dt><dd>11:30–13:30</dd></div><div class="r"><dt>클리닉 화·목</dt><dd>13:30–15:30</dd></div><div class="r"><dt>쉬는시간 화·목</dt><dd>15:30–16:30</dd></div><div class="r"><dt>정규반 화·목</dt><dd>16:30–18:30</dd></div><div class="r"><dt>특강 토</dt><dd>10:00–12:00</dd></div><div class="r"><dt>정규반 토</dt><dd>12:00–14:00</dd></div><div class="r"><dt>클리닉 토</dt><dd>14:00–16:00</dd></div></dl></div></div>
-  </div>
-
-  <div class="panel" id="p-high">
+  <div class="panel on" id="p-high">
     <div class="subbar"><span>특강 기간</span><b>1/4(월) ~ 2/27(토)</b></div>
     <div class="intro2"><div><small>고1 · 2HM</small><b>미적분 기본 · 기하 기본</b><span>월·수 미적분, 토 기하<br>정규반 월·목 18:30–22:00</span></div><div><small>고2 · 3HT</small><b>수능 수학 정시반</b><span>화·금 13:00–16:30<br>정규반 화·금 18:30–22:00</span></div></div>
     <div class="acc open"><button><span class="nm">고1<small>2HM · 월·수 · 토</small></span><span class="pm"></span></button><div class="bd"><dl>
@@ -662,32 +699,24 @@ html.js.locked .gate{display:block}
     <div class="acc"><button><span class="nm">고2<small>3HT · 화·금</small></span><span class="pm"></span></button><div class="bd"><dl>
       <div class="r"><dt>특강 화·금</dt><dd>13:00–16:30</dd></div><div class="r"><dt>클리닉 화·금</dt><dd>16:30–18:30</dd></div><div class="r"><dt>정규반 화·금</dt><dd>18:30–22:00</dd></div></dl></div></div>
   </div>
-</section>
-<section class="tt" id="regtime">
-  <div class="head"><h2>정규 시간표</h2><p>학년을 선택하고 반을 눌러 정규반 시간을 확인하세요.</p></div>
-  <div class="tabs" id="rtabs"><button class="on" data-p="r-el">예비중등부</button><button data-p="r-mid">중등부</button><button data-p="r-high">고등부</button></div>
-  <ul class="notes">
-    <li>특강 기간에도 정규반 수업은 그대로 진행됩니다.</li>
-    <li>반별 요일과 시간은 학원으로 문의해 주세요.</li>
-  </ul>
-  <div class="panel on" id="r-el">
+  <div class="panel" id="p-mid">
+    <div class="subbar"><span>중등부 특강 시작</span><b>1/11(월)</b></div>
+    <div class="intro2"><div><small>2PM · 중1</small><b>중등 2-2 · 현 중1 대상</b><span>월·수·금 11:30–13:30<br>1/11 ~ 2/26 (20회)</span></div><div><small>3PT · 중2</small><b>중등 3-2 · 현 중2 대상</b><span>화·목 10:00–12:00 / 토 17:00–19:00<br>1/11 ~ 2/27 (19회)</span></div></div>
+    <div class="intro2" style="padding-top:0"><div><small>1HT · 중3</small><b>공통수학2 기본 + 공통수학1 심화 · 중3 대상</b><span>화·목 11:30–13:30 / 토 10:00–12:00<br>1/11 ~ 2/27 (19회)</span></div></div>
+    <div class="acc open"><button><span class="nm">중1<small>2PM · 월·수·금</small></span><span class="pm"></span></button><div class="bd"><dl>
+      <div class="r"><dt>특강 월·수·금</dt><dd>11:30–13:30</dd></div><div class="r"><dt>점심 월·금</dt><dd>13:30–14:40</dd></div><div class="r"><dt>클리닉 월·금</dt><dd>14:40–16:40</dd></div><div class="r"><dt>클리닉 수</dt><dd>13:30–15:00</dd></div><div class="r"><dt>정규반 월·금</dt><dd>17:00–19:00</dd></div><div class="r"><dt>정규반 수</dt><dd>16:30–18:30</dd></div></dl></div></div>
+    <div class="acc"><button><span class="nm">중2<small>3PT · 화·목 · 토</small></span><span class="pm"></span></button><div class="bd"><dl>
+      <div class="r"><dt>특강 화·목</dt><dd>10:00–12:00</dd></div><div class="r"><dt>클리닉 화·목</dt><dd>12:00–14:00</dd></div><div class="r"><dt>정규반 토</dt><dd>14:00–17:00</dd></div><div class="r"><dt>특강 토</dt><dd>17:00–19:00</dd></div><div class="r"><dt>클리닉 토</dt><dd>19:00–21:00</dd></div><div class="r"><dt>정규반 수</dt><dd>16:00–19:00</dd></div></dl></div></div>
+    <div class="acc"><button><span class="nm">중3<small>1HT · 화·목 · 토</small></span><span class="pm"></span></button><div class="bd"><dl>
+      <div class="r"><dt>특강 화·목</dt><dd>11:30–13:30</dd></div><div class="r"><dt>클리닉 화·목</dt><dd>13:30–15:30</dd></div><div class="r"><dt>쉬는시간 화·목</dt><dd>15:30–16:30</dd></div><div class="r"><dt>정규반 화·목</dt><dd>16:30–18:30</dd></div><div class="r"><dt>특강 토</dt><dd>10:00–12:00</dd></div><div class="r"><dt>정규반 토</dt><dd>11:30–13:30</dd></div><div class="r"><dt>클리닉 토</dt><dd>14:00–16:00</dd></div></dl></div></div>
+  </div>
+  <div class="panel" id="p-el">
+    <div class="subbar"><span>특강 기간</span><b>1/8(금) ~ 2/26(금) · 총 21회</b></div>
     <div class="acc open"><button><span class="nm">초5 · 초6<small>월·수·금</small></span><span class="pm"></span></button><div class="bd"><dl>
-      <div class="r"><dt>월·수·금</dt><dd>15:30–17:30</dd></div></dl></div></div>
+      <div class="r"><dt>요일</dt><dd>월·수·금</dd></div><div class="r"><dt>시간</dt><dd>10:00–12:00</dd></div><div class="r"><dt>과정</dt><dd>중등 1-1 / 1-2 선택</dd></div></dl></div></div>
   </div>
-  <div class="panel" id="r-mid">
-    <div class="acc open"><button><span class="nm">중1<small>월·수·금</small></span><span class="pm"></span></button><div class="bd"><dl>
-      <div class="r"><dt>월·금</dt><dd>17:00–19:00</dd></div><div class="r"><dt>수</dt><dd>15:00–17:00</dd></div></dl></div></div>
-    <div class="acc"><button><span class="nm">중2<small>수 · 토</small></span><span class="pm"></span></button><div class="bd"><dl>
-      <div class="r"><dt>수</dt><dd>16:00–19:00</dd></div><div class="r"><dt>토</dt><dd>14:00–17:00</dd></div></dl></div></div>
-    <div class="acc"><button><span class="nm">중3<small>화·목 · 토</small></span><span class="pm"></span></button><div class="bd"><dl>
-      <div class="r"><dt>화·목</dt><dd>16:30–18:30</dd></div><div class="r"><dt>토</dt><dd>12:00–14:00</dd></div></dl></div></div>
-  </div>
-  <div class="panel" id="r-high">
-    <div class="acc open"><button><span class="nm">고1<small>월·목</small></span><span class="pm"></span></button><div class="bd"><dl>
-      <div class="r"><dt>월·목</dt><dd>18:30–22:00</dd></div></dl></div></div>
-    <div class="acc"><button><span class="nm">고2<small>화·금</small></span><span class="pm"></span></button><div class="bd"><dl>
-      <div class="r"><dt>화·금</dt><dd>18:30–22:00</dd></div></dl></div></div>
-  </div>
+
+
 </section>
 </div>
 
@@ -729,6 +758,14 @@ html.js.locked .gate{display:block}
       <input id="b-date" type="hidden"><p class="cm" id="cm"></p></div>
     <div class="f"><label for="b-time">희망 시간 (30분 단위)</label><select id="b-time"><option value="">선택</option></select></div>
     <div class="f"><label for="b-memo">질문하고 싶은 단원 (선택)</label><input id="b-memo" type="text" placeholder="예: 미적분 극한" autocomplete="off"></div>
+    <div class="ag"><label class="agl" for="b-agree"><input id="b-agree" type="checkbox"><span>(필수) 개인정보 수집·이용에 동의합니다</span></label>
+      <details class="agd"><summary>내용 보기</summary><div>
+        <p><b>수집 항목</b> 학생 이름, 학부모 연락처, 학생 연락처, 학년, 희망 날짜·시간</p>
+        <p><b>수집·이용 목적</b> 예약 확인 및 상담 연락, 수업 안내</p>
+        <p><b>보유·이용 기간</b> 예약 처리와 상담이 끝나면 지체 없이 파기합니다. 입반 등록 시에는 학원 운영 목적으로 보관합니다.</p>
+        <p><b>동의 거부 권리</b> 동의를 거부할 수 있으나, 거부하시면 예약을 접수할 수 없습니다.</p>
+        <p><b>문의</b> 카니윌 수학 전문학원 02-2135-8447</p>
+      </div></details></div>
     <button class="go" type="submit">예약 요청하기</button>
     <div class="err" id="b-err"></div>
     <p class="note">예약 요청 후 학원에서 가능 여부를 확인해 연락드립니다. 급한 경우 전화로 문의해 주세요.</p>
@@ -770,7 +807,7 @@ html.js.locked .gate{display:block}
   <span class="fs">관할 교육지원청 강남서초교육지원청</span>
   <span class="fs fm">고객센터 <a href="tel:050713315288">0507-1331-5288</a> | 대표번호 02-2135-8447</span>
   <span class="fs">홈페이지 caniwill.com | 블로그 blog.naver.com/caniwill</span>
-  <span class="fs fm">저작권 카니윌 수학 전문학원. 모든 권리 보유.</span>
+  <span class="fs fm">Copyright © 카니윌 수학 전문학원. 모든 권리 보유.</span>
 </div>
 </div>
 
@@ -787,6 +824,7 @@ html.js.locked .gate{display:block}
     <a class="row" href="#hero">홈<span>›</span></a>
     <a class="row" href="#greeting">원장 인사말<span>›</span></a>
     <a class="row" href="#philosophy">교육 철학<span>›</span></a>
+    <a class="row" href="#regtime">정규 시간표<span>›</span></a>
     <a class="row" href="#textbook">교재<span>›</span></a>
     <a class="row" href="#system">시스템 · 클리닉<span>›</span></a>
     <a class="row" href="#management">관리<span>›</span></a>
@@ -800,7 +838,7 @@ html.js.locked .gate{display:block}
     <a class="row" href="#day">하루 흐름<span>›</span></a>
     <a class="row" href="#flow">진행 방식<span>›</span></a>
     <a class="row" href="#feedback">피드백<span>›</span></a>
-    <a class="row" href="#time">특강 시간표<span>›</span></a>
+    <a class="row" href="#time">윈터스쿨 특강 시간표<span>›</span></a>
     <a class="row" href="#rules">수업 규칙<span>›</span></a></div>
   <div class="ms"><h4>문의</h4>
     <a class="row" href="tel:050713315288">전화 문의<span>›</span></a>
@@ -918,6 +956,7 @@ html.js.locked .gate{display:block}
     if(!d)return err.textContent='희망 날짜를 선택해 주세요.';
     var dtt=Date.parse(d+'T00:00:00Z');if(!usable(dtt)||!isOpen(dtt))return err.textContent='예약이 열린 날짜를 선택해 주세요.';
     if(!tm)return err.textContent='희망 시간을 선택해 주세요.';
+    if(!$('#b-agree').checked)return err.textContent='개인정보 수집·이용에 동의해 주세요.';
     err.textContent='';
     var dt=new Date(d+'T00:00:00Z'),wk='일월화수목금토'.charAt(dt.getUTCDay());
     sum='[카니윌 정규반 클리닉 예약]\n학생: '+n+' ('+grade+')\n학부모 연락처: '+t+'\n학생 연락처: '+st+'\n희망: '+(dt.getUTCMonth()+1)+'/'+dt.getUTCDate()+'('+wk+') '+tm+(m?'\n질문 단원: '+m:'');
@@ -973,6 +1012,7 @@ html.js.locked .gate{display:block}
     if(!d)return err.textContent='희망 날짜를 선택해 주세요.';
     if(!usable(Date.parse(d+'T00:00:00Z')))return err.textContent='선택할 수 있는 날짜를 골라 주세요.';
     if(!tm)return err.textContent='희망 시간을 선택해 주세요.';
+    if(!$('#t-agree').checked)return err.textContent='개인정보 수집·이용에 동의해 주세요.';
     err.textContent='';
     var dt=new Date(d+'T00:00:00Z');
     sum='[카니윌 입반테스트 예약]\n학생: '+n+' ('+grade+')\n학교: '+sc+'\n학부모 연락처: '+t+'\n학생 연락처: '+st+'\n희망: '+(dt.getUTCMonth()+1)+'/'+dt.getUTCDate()+'('+DAY.charAt(dt.getUTCDay())+') '+tm;
@@ -983,6 +1023,14 @@ html.js.locked .gate{display:block}
     form.style.display='none';done.className='done on';done.scrollIntoView({behavior:'smooth',block:'start'});
   });
   $('#t-copy').addEventListener('click',function(){var b=this;var ok=function(){b.textContent='복사되었습니다'};try{navigator.clipboard.writeText(sum).then(ok,function(){})}catch(x){var ta=document.createElement('textarea');ta.value=sum;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok()}catch(y){}document.body.removeChild(ta)}});
+})();
+
+(function(){
+  var segs=[].slice.call(document.querySelectorAll('.seg a')),secs=segs.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function mark(i){segs.forEach(function(a,k){a.className=k===i?'on':''})}
+  function upd(){var v=document.getElementById('v-schedule');if(!v||!v.className.match(/\bon\b/))return;var y=160,cur=0;secs.forEach(function(el,k){if(el&&el.getBoundingClientRect().top<=y)cur=k});if((window.innerHeight+window.scrollY)>=document.documentElement.scrollHeight-4)cur=secs.length-1;mark(cur)}
+  segs.forEach(function(a,k){a.addEventListener('click',function(){mark(k)})});
+  window.addEventListener('scroll',upd,{passive:true});mark(0);setTimeout(upd,400);
 })();
 </script>
 </body>
