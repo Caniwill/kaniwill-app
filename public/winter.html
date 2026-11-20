@@ -229,7 +229,7 @@ body{overflow-x:clip;background:#fff;color:var(--ink);font-family:'Pretendard',-
 .ql h2+.qr{margin-top:calc(var(--u)*6);border-top:calc(var(--u)*.3) solid #111}
 .qr span{color:#999;font-size:calc(var(--u)*4.4)}
 html.js .shared{display:none}
-html.js[data-view="v-winter"] .shared,html.js[data-view="v-schedule"] .shared,html.js[data-view="v-regular"] .shared{display:block}
+html.js[data-view="v-winter"] .close.shared,html.js[data-view="v-schedule"] .close.shared,html.js[data-view="v-regular"] .shared{display:block}
 .view .plain:first-of-type{padding-top:calc(var(--u)*10)}
 
 .news{padding:calc(var(--u)*14) calc(var(--u)*5) calc(var(--u)*12);background:#fff}
@@ -327,6 +327,22 @@ html[data-view="v-sns"] .news{display:none}
 .qg{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*2);margin-top:calc(var(--u)*7)}
 .qg a{display:block;padding:calc(var(--u)*4.4) calc(var(--u)*4);border:calc(var(--u)*.3) solid #d9dade;border-radius:calc(var(--u)*2);text-decoration:none;color:#111;font-size:calc(var(--u)*3.7);font-weight:400;letter-spacing:-0.03em}
 .qg a.wide{grid-column:1/-1}
+
+.cal{border:calc(var(--u)*.3) solid #d9dade;border-radius:calc(var(--u)*2);padding:calc(var(--u)*3) calc(var(--u)*2.4) calc(var(--u)*3.4)}
+.cal .ch{display:flex;align-items:center;justify-content:space-between;padding:0 calc(var(--u)*1) calc(var(--u)*2.4)}
+.cal .ch b{font-size:calc(var(--u)*4);font-weight:500}
+.cal .ch button{width:calc(var(--u)*9);height:calc(var(--u)*9);border:0;background:none;font:inherit;font-size:calc(var(--u)*6);color:#111;cursor:pointer;line-height:1}
+.cal .ch button:disabled{color:#ccc;cursor:default}
+.cal .cw,.cal .cg{display:grid;grid-template-columns:repeat(7,1fr);gap:calc(var(--u)*.8)}
+.cal .cw i{font-style:normal;text-align:center;font-size:calc(var(--u)*3);color:var(--mute);padding:calc(var(--u)*1.4) 0}
+.cal .cg button{font:inherit;font-size:calc(var(--u)*3.6);aspect-ratio:1/1;border:0;border-radius:50%;background:none;color:#111;cursor:pointer;padding:0}
+.cal .cg button.ok{font-weight:500;background:#f1f1f3}
+.cal .cg button.on{background:#111;color:#fff}
+.cal .cg button.cl{color:#b9b9c0;cursor:pointer}
+.cal .cg button.off{color:#d7d7dc;cursor:default}
+.cal .cg span{display:block}
+.cm{margin-top:calc(var(--u)*3);font-size:calc(var(--u)*3.2);font-weight:300;color:var(--sub);line-height:1.7}
+.cm b{font-weight:500;color:#111}
 </style>
 </head>
 <body>
@@ -567,7 +583,6 @@ html[data-view="v-sns"] .news{display:none}
   <h2 class="fade">특강 더 알아보기</h2>
   <a class="qr" href="#time">특강 · 정규 시간표<span>›</span></a>
   <a class="qr" href="#rules">스파르타 수업 규칙<span>›</span></a>
-  <a class="qr" href="#book" data-v="v-winter">클리닉 예약<span>›</span></a>
 </section>
 
 
@@ -666,12 +681,15 @@ html[data-view="v-sns"] .news{display:none}
 
 <section class="book shared" id="book">
   <h2>클리닉 예약</h2>
-  <p class="lead">특강 뒤 클리닉을 이용할 날짜와 시간을 남겨 주세요.<br>확인 후 학원에서 연락드립니다.</p>
+  <p class="lead">정규반 클리닉을 이용할 날짜와 시간을 남겨 주세요.<br>확인 후 학원에서 연락드립니다.</p>
   <form class="bf" id="bf" novalidate>
     <div class="f"><label for="b-name">학생 이름</label><input id="b-name" type="text" placeholder="이름" autocomplete="off"></div>
     <div class="f"><label for="b-tel">학부모 연락처</label><input id="b-tel" type="tel" inputmode="numeric" placeholder="010-0000-0000" autocomplete="off"></div>
     <div class="f"><span class="lb">학년</span><div class="chips" id="b-grade"><button type="button">초5</button><button type="button">초6</button><button type="button">중1</button><button type="button">중2</button><button type="button">중3</button><button type="button">고1</button><button type="button">고2</button></div></div>
-    <div class="f"><label for="b-date">희망 날짜</label><input id="b-date" type="date" min="2027-01-04" max="2027-02-27"></div>
+    <div class="f"><span class="lb">희망 날짜</span>
+      <div class="cal"><div class="ch"><button type="button" id="cp" aria-label="이전 달">‹</button><b id="ct"></b><button type="button" id="cn" aria-label="다음 달">›</button></div>
+      <div class="cw"><i>월</i><i>화</i><i>수</i><i>목</i><i>금</i><i>토</i><i>일</i></div><div class="cg" id="cg"></div></div>
+      <input id="b-date" type="hidden"><p class="cm" id="cm"></p></div>
     <div class="f"><label for="b-time">희망 시작 시간</label><select id="b-time"><option value="">선택</option></select></div>
     <div class="f"><label for="b-memo">질문하고 싶은 단원 (선택)</label><input id="b-memo" type="text" placeholder="예: 미적분 극한" autocomplete="off"></div>
     <button class="go" type="submit">예약 요청하기</button>
@@ -744,8 +762,7 @@ html[data-view="v-sns"] .news{display:none}
     <a class="row" href="#flow">진행 방식<span>›</span></a>
     <a class="row" href="#feedback">피드백<span>›</span></a>
     <a class="row" href="#time">특강 시간표<span>›</span></a>
-    <a class="row" href="#rules">수업 규칙<span>›</span></a>
-    <a class="row" href="#book" data-v="v-winter">클리닉 예약<span>›</span></a></div>
+    <a class="row" href="#rules">수업 규칙<span>›</span></a></div>
   <div class="ms"><h4>문의</h4>
     <a class="row" href="tel:050713315288">전화 문의<span>›</span></a>
     <a class="row" href="https://naver.me/xPYDCF58">위치 보기 (네이버 지도)<span>›</span></a>
@@ -811,6 +828,35 @@ html[data-view="v-sns"] .news{display:none}
   var sel=$('#b-time');for(var h=10;h<=21;h++){var o=document.createElement('option');o.value=o.textContent=(h<10?'0':'')+h+':00';sel.appendChild(o)}
   var grade='';[].forEach.call(document.querySelectorAll('#b-grade button'),function(b){b.addEventListener('click',function(){grade=b.textContent;[].forEach.call(document.querySelectorAll('#b-grade button'),function(x){x.className=x===b?'on':''})})});
   var tel=$('#b-tel');tel.addEventListener('input',function(){var v=tel.value.replace(/\D/g,'').slice(0,11);tel.value=v.length>7?v.replace(/(\d{3})(\d{4})(\d{0,4})/,'$1-$2-$3'):v.length>3?v.replace(/(\d{3})(\d+)/,'$1-$2'):v});
+
+  /* 달력: 오늘부터 예약, 해당 주 월요일 오전 9시(KST)에 그 주가 열림 */
+  var cg=$('#cg'),ct=$('#ct'),cm=$('#cm'),bd=$('#b-date'),DAY='일월화수목금토',MON=2;
+  function kst(){var k=new Date(Date.now()+9*36e5);return Date.UTC(k.getUTCFullYear(),k.getUTCMonth(),k.getUTCDate())}
+  var T0=kst(),K0=new Date(T0),cy=K0.getUTCFullYear(),cmo=K0.getUTCMonth(),BY=cy,BM=cmo,TMAX=Date.UTC(BY,BM+MON+1,0);
+  function monOf(t){var d=new Date(t);return t-((d.getUTCDay()+6)%7)*864e5}
+  function isOpen(t){return Date.now()>=monOf(t)}
+  function hol(t){var d=new Date(t),m=d.getUTCMonth(),x=d.getUTCDate();return d.getUTCFullYear()===2027&&((m===0&&x===1)||(m===1&&x>=6&&x<=9))}
+  function usable(t){return t>=kst()&&t<=TMAX&&new Date(t).getUTCDay()!==0&&!hol(t)}
+  function fmt(t){var d=new Date(t);return (d.getUTCMonth()+1)+'/'+d.getUTCDate()+'('+DAY.charAt(d.getUTCDay())+')'}
+  function nextOpen(){var t=monOf(kst());for(var i=0;i<14;i++){if(!isOpen(t))return t;t+=7*864e5}return 0}
+  function msg(extra){var n=nextOpen(),h='매주 <b>월요일 오전 9시</b>에 그 주 예약이 열려요.';if(n)h+=' 다음 오픈: <b>'+fmt(n)+' 오전 9시</b>';cm.innerHTML=(extra?extra+'<br>':'')+h}
+  function off(){return (cy-BY)*12+cmo-BM}
+  function draw(){
+    ct.textContent=cy+'년 '+(cmo+1)+'월';cg.innerHTML='';
+    var first=Date.UTC(cy,cmo,1),lead=(new Date(first).getUTCDay()+6)%7,days=new Date(Date.UTC(cy,cmo+1,0)).getUTCDate();
+    for(var i=0;i<lead;i++)cg.appendChild(document.createElement('span'));
+    for(var d=1;d<=days;d++){(function(d){var t=Date.UTC(cy,cmo,d),b=document.createElement('button');b.type='button';b.textContent=d;
+      var sel=bd.value===new Date(t).toISOString().slice(0,10);
+      if(!usable(t))b.className='off';else if(!isOpen(t))b.className='cl';else b.className=sel?'on':'ok';
+      b.addEventListener('click',function(){
+        if(!usable(t))return msg('선택할 수 없는 날짜예요.');
+        if(!isOpen(t)){return msg(fmt(t)+'이 있는 주는 <b>'+fmt(monOf(t))+' 오전 9시</b>에 열려요.')}
+        bd.value=new Date(t).toISOString().slice(0,10);draw();msg('선택한 날짜: <b>'+fmt(t)+'</b>')});
+      cg.appendChild(b)})(d)}
+    $('#cp').disabled=off()<=0;$('#cn').disabled=off()>=MON}
+  $('#cp').addEventListener('click',function(){if(off()>0){cmo--;if(cmo<0){cmo=11;cy--}draw()}});
+  $('#cn').addEventListener('click',function(){if(off()<MON){cmo++;if(cmo>11){cmo=0;cy++}draw()}});
+  draw();msg('');
   var form=$('#bf'),err=$('#b-err'),done=$('#b-done'),sum='';
   form.addEventListener('submit',function(e){e.preventDefault();
     var n=$('#b-name').value.trim(),t=tel.value.trim(),d=$('#b-date').value,tm=sel.value,m=$('#b-memo').value.trim();
@@ -818,11 +864,11 @@ html[data-view="v-sns"] .news{display:none}
     if(t.replace(/\D/g,'').length<10)return err.textContent='연락처를 정확히 입력해 주세요.';
     if(!grade)return err.textContent='학년을 선택해 주세요.';
     if(!d)return err.textContent='희망 날짜를 선택해 주세요.';
-    if(d<'2027-01-04'||d>'2027-02-27')return err.textContent='특강 기간(1/4~2/27) 안의 날짜를 선택해 주세요.';
+    var dtt=Date.parse(d+'T00:00:00Z');if(!usable(dtt)||!isOpen(dtt))return err.textContent='예약이 열린 날짜를 선택해 주세요.';
     if(!tm)return err.textContent='희망 시간을 선택해 주세요.';
     err.textContent='';
-    var dt=new Date(d+'T00:00:00'),wk='일월화수목금토'.charAt(dt.getDay());
-    sum='[카니윌 윈터스쿨 클리닉 예약]\n학생: '+n+' ('+grade+')\n연락처: '+t+'\n희망: '+(dt.getMonth()+1)+'/'+dt.getDate()+'('+wk+') '+tm+(m?'\n질문 단원: '+m:'');
+    var dt=new Date(d+'T00:00:00Z'),wk='일월화수목금토'.charAt(dt.getUTCDay());
+    sum='[카니윌 정규반 클리닉 예약]\n학생: '+n+' ('+grade+')\n연락처: '+t+'\n희망: '+(dt.getUTCMonth()+1)+'/'+dt.getUTCDate()+'('+wk+') '+tm+(m?'\n질문 단원: '+m:'');
     var finish=function(sent){$('#b-msg').textContent=sent?'접수되었습니다. 확인 후 연락드리겠습니다.':'아래 내용을 복사해 학원으로 보내 주시거나, 전화로 확정해 주세요.';$('#b-sum').textContent=sum;form.style.display='none';done.className='done on';done.scrollIntoView({behavior:'smooth',block:'start'})};
     if(ENDPOINT){try{fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,tel:t,grade:grade,date:d,time:tm,memo:m})}).then(function(r){finish(r.ok)}).catch(function(){finish(false)})}catch(x){finish(false)}}else finish(false);
   });
