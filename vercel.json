@@ -1,0 +1,5 @@
+{
+"redirects": [
+{ "source": "/", "destination": "/winter.html", "permanent": false }
+]
+}
