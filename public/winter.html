@@ -294,6 +294,14 @@ html[data-view="v-sns"] .news{display:none}
 /* popup */
 .modal{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.62);display:none;align-items:center;justify-content:center;padding:calc(var(--u)*6)}
 .modal.open{display:flex}
+.cfm .cb{width:100%;max-width:calc(var(--u)*84);background:#fff;border-radius:0;padding:calc(var(--u)*7) calc(var(--u)*6) calc(var(--u)*6);text-align:center}
+.cfm h3{font-size:calc(var(--u)*4.8);font-weight:500;letter-spacing:-0.05em;line-height:1.45}
+.cfm p{margin-top:calc(var(--u)*3);font-size:calc(var(--u)*3.4);color:var(--sub);font-weight:300;line-height:1.7}
+.cfm .cbt{display:flex;flex-direction:column;gap:calc(var(--u)*2.4);margin-top:calc(var(--u)*6)}
+.cfm .cbt a,.cfm .cbt button{display:block;font:inherit;font-size:calc(var(--u)*3.8);font-weight:500;padding:calc(var(--u)*3.8) 0;border:calc(var(--u)*.3) solid #111;border-radius:0;text-decoration:none;cursor:pointer;color:#111;background:#fff}
+.cfm .cbt .p{background:#111;color:#fff}
+.cfm .cx{margin-top:calc(var(--u)*3);background:none;border:0;font:inherit;font-size:calc(var(--u)*3.2);color:var(--mute);text-decoration:underline;cursor:pointer}
+
 .mbox{position:relative;width:100%;max-width:520px;max-height:84svh;background:#fff;border-radius:0;display:flex;flex-direction:column;overflow:hidden}
 .mbox .x{position:absolute;right:calc(var(--u)*3.6);top:calc(var(--u)*3.6);background:none;border:0;padding:calc(var(--u)*2);cursor:pointer;z-index:2}
 .mbox .x svg{width:calc(var(--u)*6);height:calc(var(--u)*6);stroke:#111;stroke-width:1.8;fill:none;stroke-linecap:round}
@@ -534,7 +542,7 @@ html.js.locked .gate{display:block}
     <div class="sum" id="t-sum"></div>
     <a class="smsb" id="t-sms" href="sms:01024169684" hidden>문자로 예약 보내기</a>
     <p class="smsh" id="t-smsh" hidden>문자 앱이 열리지 않으면 예약 내용이 복사됐어요.<br><b>010-2416-9684</b> 번호로 붙여 넣어 보내 주세요.</p>
-    <div class="acts"><button type="button" id="t-copy">내용 복사</button><a href="tel:050713315288">전화로 확정하기</a></div>
+    <div class="acts"><button type="button" id="t-copy">내용 복사</button><a href="tel:050713315288" class="tconf">전화로 확정하기</a></div>
   </div>
 </section>
 </div>
@@ -776,7 +784,7 @@ html.js.locked .gate{display:block}
     <div class="sum" id="b-sum"></div>
     <a class="smsb" id="b-sms" href="sms:01024169684" hidden>문자로 예약 보내기</a>
     <p class="smsh" id="b-smsh" hidden>문자 앱이 열리지 않으면 예약 내용이 복사됐어요.<br><b>010-2416-9684</b> 번호로 붙여 넣어 보내 주세요.</p>
-    <div class="acts"><button type="button" id="b-copy">내용 복사</button><a href="tel:050713315288">전화로 확정하기</a></div>
+    <div class="acts"><button type="button" id="b-copy">내용 복사</button><a href="tel:050713315288" class="tconf">전화로 확정하기</a></div>
   </div>
 </section>
 
@@ -849,6 +857,12 @@ html.js.locked .gate{display:block}
 </div></div>
 
 <!-- popup -->
+<div class="modal cfm" id="cfm"><div class="cb" role="dialog" aria-modal="true">
+  <h3>문자로 예약을<br>먼저 보내셨나요?</h3>
+  <p>예약 내용을 문자로 먼저 보내 주셔야<br>전화로 빠르게 확정해 드릴 수 있어요.</p>
+  <div class="cbt"><button type="button" class="p" id="cfm-sms">아니요, 문자부터 보낼게요</button><a href="tel:050713315288" id="cfm-tel">네, 전화하기</a></div>
+  <button type="button" class="cx" id="cfm-x">닫기</button>
+</div></div>
 <div class="modal" id="pop"><div class="mbox" role="dialog" aria-modal="true">
   <button class="x" id="px" aria-label="닫기"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
   <div class="mbody"><h2>2027 윈터스쿨<br>스파르타 특강 안내</h2>
@@ -1031,6 +1045,16 @@ html.js.locked .gate{display:block}
   function upd(){var v=document.getElementById('v-schedule');if(!v||!v.className.match(/\bon\b/))return;var y=160,cur=0;secs.forEach(function(el,k){if(el&&el.getBoundingClientRect().top<=y)cur=k});if((window.innerHeight+window.scrollY)>=document.documentElement.scrollHeight-4)cur=secs.length-1;mark(cur)}
   segs.forEach(function(a,k){a.addEventListener('click',function(){mark(k)})});
   window.addEventListener('scroll',upd,{passive:true});mark(0);setTimeout(upd,400);
+})();
+
+(function(){
+  var m=document.getElementById('cfm'),from=null;
+  function close(){m.className='modal cfm'}
+  [].forEach.call(document.querySelectorAll('a.tconf'),function(a){a.addEventListener('click',function(e){e.preventDefault();from=a.closest('.done');m.className='modal cfm open'})});
+  document.getElementById('cfm-x').addEventListener('click',close);
+  m.addEventListener('click',function(e){if(e.target===m)close()});
+  document.getElementById('cfm-tel').addEventListener('click',function(){setTimeout(close,300)});
+  document.getElementById('cfm-sms').addEventListener('click',function(){close();var b=from&&from.querySelector('.smsb');if(b){b.scrollIntoView({behavior:'smooth',block:'center'})}});
 })();
 </script>
 </body>
